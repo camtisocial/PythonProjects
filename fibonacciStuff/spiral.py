@@ -7,7 +7,7 @@ from math import pi, sqrt
 scale = 20
 a = 1+sqrt(5)
 b = 2
-gratio = a/b
+g_ratio = a/b
 baseGnomonScale = a*scale
 
 #-------- screen setup ---------#
@@ -20,20 +20,36 @@ turtle = Turtle()
 turtle.radians()
 turtle.showturtle
 turtle.color("white")
+turtle.pensize(2)
 
 
-def triangularSpiral(turtle):
-    resetPen(turtle)
-    turtle.right(pi/4)
-    turtle.circle((b/a)*scale, 3*pi/5)
-    turtle.left(pi/4)
+def triangularSpiral(iterations, turtle):
+    turtle.penup()
+    turtle.home()
+    turtle.setpos(-120.0+b*scale, 100.0)
+    turtle.pendown()
+    turtle.setheading(5.235987)
+    drawArc(iterations, turtle)
+
+def drawArc(iterations, turtle):
+    turtle.color("HotPink1")
+    global baseGnomonScale
+    baseGnomonScale = a*scale
+    angle = 4*pi/3
+    turtle.right(angle)
+    turtle.circle(0.36*baseGnomonScale, -2*pi/3)
+    baseGnomonScale*=g_ratio
+    angle*=1.475
+
+    for _ in range (iterations):
+        turtle.right(angle)
+        turtle.circle(0.35*baseGnomonScale, -2*pi/3)
+        baseGnomonScale*=g_ratio*1.039
+
 
 def triangleFib(iterations, turtle):
-    #positioning turtle
     resetPen(turtle)
-    #drawing initial triangle
     goldTriangle(turtle)
-    #drawing gnomons
     for _ in range (iterations):
         goldGnomon(turtle)
     
@@ -49,13 +65,13 @@ def goldTriangle(turtle):
 
 def goldGnomon(turtle):
     global baseGnomonScale
-    baseGnomonScale*=gratio
+    baseGnomonScale*=g_ratio
     turtle.right(4*pi/5)
     turtle.fd(baseGnomonScale)
     turtle.right(4*pi/5)
-    turtle.fd(baseGnomonScale/gratio)
+    turtle.fd(baseGnomonScale/g_ratio)
     turtle.right(pi)
-    turtle.fd(baseGnomonScale/gratio)
+    turtle.fd(baseGnomonScale/g_ratio)
 
 def resetPen(turtle):
     turtle.penup()
@@ -64,8 +80,8 @@ def resetPen(turtle):
     turtle.pendown()
 
 def main():
-    triangleFib(2, turtle)
-    triangularSpiral(turtle)
+    triangleFib(5, turtle)
+    triangularSpiral(6, turtle)
 
 main()
 

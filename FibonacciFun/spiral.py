@@ -10,7 +10,6 @@ b = 2
 gratio = a/b
 baseGnomonScale = a*scale
 
-
 #-------- screen setup ---------#
 screen = Screen()
 screen.setup(width = 1000, height = 1000)
@@ -23,19 +22,20 @@ turtle.showturtle
 turtle.color("white")
 
 
+def triangularSpiral(turtle):
+    resetPen(turtle)
+    turtle.right(pi/4)
+    turtle.circle((b/a)*scale, 3*pi/5)
+    turtle.left(pi/4)
+
 def triangleFib(iterations, turtle):
     #positioning turtle
-    turtle.penup()
-    turtle.setpos(-120.0, 100.0)
-    turtle.pendown()
-
+    resetPen(turtle)
     #drawing initial triangle
     goldTriangle(turtle)
-
     #drawing gnomons
     for _ in range (iterations):
         goldGnomon(turtle)
-
     
 def goldTriangle(turtle):
     turtle.fd(b*scale)
@@ -57,12 +57,17 @@ def goldGnomon(turtle):
     turtle.right(pi)
     turtle.fd(baseGnomonScale/gratio)
 
+def resetPen(turtle):
+    turtle.penup()
+    turtle.home()
+    turtle.setpos(-120.0, 100.0)
+    turtle.pendown()
+
 def main():
-    triangleFib(5, turtle)
+    triangleFib(2, turtle)
+    triangularSpiral(turtle)
 
 main()
-
-
 
 
 

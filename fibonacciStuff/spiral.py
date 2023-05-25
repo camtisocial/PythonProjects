@@ -23,29 +23,10 @@ turtle.color("white")
 turtle.pensize(2)
 
 
-def triangularSpiral(iterations, turtle):
+def resetPen(turtle):
     turtle.penup()
-    turtle.home()
-    turtle.setpos(-120.0+b*scale, 100.0)
+    turtle.setpos(-120.0, 100.0)
     turtle.pendown()
-    turtle.setheading(5.235987)
-    drawArc(iterations, turtle)
-
-def drawArc(iterations, turtle):
-    turtle.color("HotPink1")
-    global baseGnomonScale
-    baseGnomonScale = a*scale
-    angle = 4*pi/3
-    turtle.right(angle)
-    turtle.circle(0.36*baseGnomonScale, -2*pi/3)
-    baseGnomonScale*=g_ratio
-    angle*=1.475
-
-    for _ in range (iterations):
-        turtle.right(angle)
-        turtle.circle(0.35*baseGnomonScale, -2*pi/3)
-        baseGnomonScale*=g_ratio*1.039
-
 
 def triangleFib(iterations, turtle):
     resetPen(turtle)
@@ -73,11 +54,26 @@ def goldGnomon(turtle):
     turtle.right(pi)
     turtle.fd(baseGnomonScale/g_ratio)
 
-def resetPen(turtle):
+def triangularSpiral(iterations, turtle):
     turtle.penup()
-    turtle.home()
-    turtle.setpos(-120.0, 100.0)
+    turtle.setpos(-120.0+b*scale, 100.0)
     turtle.pendown()
+    turtle.setheading(5.235987)
+
+    turtle.color("HotPink1")
+    global baseGnomonScale
+    baseGnomonScale = a*scale
+    angle = 4*pi/3
+    turtle.right(angle)
+    turtle.circle(0.36*baseGnomonScale, -2*pi/3)
+    baseGnomonScale*=g_ratio
+    angle*=1.475
+
+    for _ in range (iterations):
+        turtle.right(angle)
+        turtle.circle(0.35*baseGnomonScale, -2*pi/3)
+        baseGnomonScale*=g_ratio*1.039
+
 
 def main():
     triangleFib(5, turtle)
